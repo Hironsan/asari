@@ -56,7 +56,7 @@
               <i class="fas fa-edit"></i> Input</h1>
             <div class="field">
               <p class="control is-expanded">
-                <input class="input" type="text" placeholder="Enter English text" maxLength="100" v-model="query">
+                <input class="input" type="text" placeholder="例: 広告多すぎる♡" maxLength="100" v-model="query">
               </p>
             </div>
           </div>
@@ -140,17 +140,17 @@
       el: '#root',
       delimiters: ['[[', ']]'],
       data: {
-        query: "いい感じです！",
+        query: "広告多すぎる♡",
         result: {
           "classes": [{
             "class_name": "negative",
-            "confidence": 0.003455742710659515
+            "confidence": 0.8835804379112191
           }, {
             "class_name": "positive",
-            "confidence": 0.9965442572893405
+            "confidence": 0.11641956208878088
           }],
-          "text": "いい感じです！",
-          "top_class": "positive"
+          "text": "広告多すぎる♡",
+          "top_class": "negative"
         },
       },
       computed: {
