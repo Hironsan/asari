@@ -191,4 +191,4 @@ fabric.properties
 pyvenv.cfg
 pip-selfcheck.json
 
-data/
+/data
