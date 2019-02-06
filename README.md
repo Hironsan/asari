@@ -1,7 +1,7 @@
 # asari
 Asari is a Japanese sentiment analyzer implemented in Python.
 
-![Image](./docs/asari.jpg)
+![Image](./docs/asari.jpg)<br>
 Photo by [Andrew Buchanan](https://unsplash.com/@photoart2018) on [Unsplash](https://unsplash.com/)
 
 Behold, the power of asari:
