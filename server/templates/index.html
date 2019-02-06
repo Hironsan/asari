@@ -171,16 +171,14 @@
 
       watch: {
         query: function () {
-          if (this.query == '') {
-            this.result = '';
-            return;
+          if (this.query != '') {
+              var payload = {
+                  'text': this.query
+              };
+              axios.post(`${base_url}api/analyze`, payload).then(response => {
+                  this.result = response.data;
+              })
           }
-          var payload = {
-            'text': this.query
-          };
-          axios.post(`${base_url}api/analyze`, payload).then(response => {
-            this.result = response.data;
-          })
         }
       }
     })
