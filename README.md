@@ -1,6 +1,8 @@
 # asari
 Asari is a Japanese sentiment analyzer implemented in Python.
 
+## [Demo](https://asari-sentiment.herokuapp.com/)
+
 ![Image](./docs/asari.jpg)<br>
 Photo by [Andrew Buchanan](https://unsplash.com/@photoart2018) on [Unsplash](https://unsplash.com/)
 
@@ -9,16 +11,16 @@ Behold, the power of asari:
 ```python
 >>> from asari import Sonar
 >>> sonar = Sonar()
->>> sonar.ping(text="いい感じです！")
+>>> sonar.ping(text="広告多すぎる♡")
 {
-  "text" : "いい感じです！",
-  "top_class" : "positive",
+  "text" : "広告多すぎる♡",
+  "top_class" : "negative",
   "classes" : [ {
     "class_name" : "positive",
-    "confidence" : 0.9965442572893405
+    "confidence" : 0.09130180181262026
   }, {
     "class_name" : "negative",
-    "confidence" : 0.003455742710659515
+    "confidence" : 0.9086981981873797
   } ]
 }
 ```
