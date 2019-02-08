@@ -11,9 +11,10 @@ import os
 
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
+from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
+from sklearn.calibration import CalibratedClassifierCV
 
 from asari.utils import load_jsonl
 from asari.preprocess import tokenize
@@ -29,7 +30,7 @@ def main(args):
     x_train = vectorizer.fit_transform(x_train)
 
     print('Fitting...')
-    clf = LogisticRegression(penalty='l1')
+    clf = CalibratedClassifierCV(LinearSVC())
     clf.fit(x_train, y_train)
 
     print('Saving...')
@@ -41,14 +42,14 @@ def main(args):
         x_test = vectorizer.transform(x_test)
         y_pred = clf.predict(x_test)
 
-        print(classification_report(y_test, y_pred))
+        print(classification_report(y_test, y_pred, digits=4))
 
 
 if __name__ == '__main__':
     DATA_DIR = os.path.join(os.path.dirname(__file__), '../data')
     SAVE_DIR = os.path.join(os.path.dirname(__file__), 'data')
     parser = argparse.ArgumentParser(description='Training a classifier')
-    parser.add_argument('--dataset', default=os.path.join(DATA_DIR, 'appstore_reviews.jsonl'), help='dataset')
+    parser.add_argument('--dataset', default=os.path.join(DATA_DIR, 'reviews.jsonl'), help='dataset')
     parser.add_argument('--model_file', default=os.path.join(SAVE_DIR, 'model.pkl'), help='model file')
     parser.add_argument('--preprocessor', default=os.path.join(SAVE_DIR, 'preprocess.pkl'), help='preprocessor')
     parser.add_argument('--test_size', type=float, default=0.2, help='test data size')
