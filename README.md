@@ -9,7 +9,7 @@ Photo by [Andrew Buchanan](https://unsplash.com/@photoart2018) on [Unsplash](htt
 Behold, the power of asari:
 
 ```python
->>> from asari import Sonar
+>>> from asari.api import Sonar
 >>> sonar = Sonar()
 >>> sonar.ping(text="広告多すぎる♡")
 {
