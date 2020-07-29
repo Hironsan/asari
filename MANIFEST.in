@@ -1,1 +1,1 @@
-recursive-include asari/data *.pkl
+recursive-include asari/data *.joblib
