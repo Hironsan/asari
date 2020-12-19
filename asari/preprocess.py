@@ -3,4 +3,4 @@ t = Tokenizer()
 
 
 def tokenize(text):
-    return t.tokenize(text, wakati=True)
+    return list(t.tokenize(text, wakati=True))
