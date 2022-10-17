@@ -14,7 +14,7 @@ class Sonar:
         mapping = {0: "negative", 1: "positive"}
         res = {
             "text": text,
-            "top_class": mapping[np.argmax(proba)],
+            "top_class": mapping[int(np.argmax(proba))],
             "classes": [{"class_name": mapping[k], "confidence": proba[k]} for k in sorted(mapping)],
         }
 
