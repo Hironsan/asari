@@ -27,3 +27,5 @@ jobs:
       run: pip install asari
     - name: Test prediction
       run: python -c "from asari.api import Sonar; sonar = Sonar(); print(sonar.ping(text='広告多すぎる♡'))"
+      env:
+        PYTHONIOENCODING: utf-8
