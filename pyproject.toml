@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "asari"
+version = "0.1.0"
+description = "Japanese sentiment analyzer implemented in Python."
+authors = ["Hironsan <hiroki.nakayama.py@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/Hironsan/asari"
+repository = "https://github.com/Hironsan/asari"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+packages = [{include = "asari"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+scikit-learn = "^1.1.2"
+Janome = "^0.4.2"
+
+[tool.poetry.dev-dependencies]
+taskipy = "^1.10.3"
+black = "^22.10.0"
+isort = "^5.10.1"
+mypy = "^0.982"
+pyproject-flake8 = "^5.0.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py38', 'py39', 'py310']
+include = '\.pyi?$'
+
+[tool.flake8]
+max-line-length = 120
+max-complexity = 18
+ignore = "E203,E266,W503"
+filename = "*.py"
+exclude = ".git,__pycache__,docs,build,dist"
+
+[tool.isort]
+profile = "black"
+include_trailing_comma = true
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+ignore_missing_imports = true
+show_error_codes = true
+
+[tool.taskipy.tasks]
+isort = "isort . -c"
+flake8 = "pflake8 asari"
+black = "black --check ."
+mypy = "mypy asari"
+test = "python -m unittest discover tests"
+train = "python asari/train.py"

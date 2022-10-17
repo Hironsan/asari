@@ -1,17 +1,15 @@
 # asari
+
 Asari is a Japanese sentiment analyzer implemented in Python.
 
-## [Demo](https://asari-sentiment.herokuapp.com/)
-
-![Image](./docs/asari.jpg)<br>
-Photo by [Andrew Buchanan](https://unsplash.com/@photoart2018) on [Unsplash](https://unsplash.com/)
+## Usage
 
 Behold, the power of asari:
 
 ```python
->>> from asari.api import Sonar
->>> sonar = Sonar()
->>> sonar.ping(text="広告多すぎる♡")
+from asari.api import Sonar
+sonar = Sonar()
+sonar.ping(text="広告多すぎる♡")
 {
   "text" : "広告多すぎる♡",
   "top_class" : "negative",
@@ -28,8 +26,9 @@ Behold, the power of asari:
 Asari allows you to classify text into positive/negative class, without the need for training. You have only to fed text into asari.
 
 ## Installation
-To install asari, simply use `pip`:
+
+To install asari, simply use `pip` with Python 3.8+:
 
 ```bash
-$ pip install asari
+pip install asari
 ```

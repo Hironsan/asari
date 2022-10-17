@@ -1,0 +1,100 @@
+# The "build" workflow produces wheels (and the sdist) for all python
+# versions/platforms. Where possible (i.e. the build is not a cross-compile).
+name: Build
+
+on:
+  push:
+    branches:
+      # Run on release branches.
+      - "branch[0-9]*"
+      # Also run on certain other branches for testing.
+      - "build-workflow*"
+    tags:
+      - "v*"
+
+env:
+  python-version: '3.8'
+
+jobs:
+  build:
+    name: Build sdist
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        name: Install Python
+        with:
+          python-version: ${{ env.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+      - name: Build a binary wheel and a source tarball
+        run: |
+          poetry build
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist/asari*
+
+  upload_pypi_test:
+    name: Upload to PyPI (test)
+    needs: [build]
+    runs-on: ubuntu-20.04
+    if: github.event_name == 'push' && startsWith(github.ref_name, 'build-workflow')
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@v1.5.1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
+
+  test_installation:
+    name: Test installation for PyPI (test)
+    needs: [upload_pypi_test]
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push' && startsWith(github.ref_name, 'build-workflow')
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -U setuptools
+    - name: Install asari
+      run: pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple asari
+    - name: Test prediction
+      run: python -c "from asari.api import Sonar; sonar = Sonar(); print(sonar.ping(text='広告多すぎる♡'))"
+      env:
+        PYTHONIOENCODING: utf-8
+
+  upload_pypi:
+    name: Upload to PyPI (prod)
+    needs: [build]
+    runs-on: ubuntu-20.04
+    if: github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
+
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.5.1
+        with:
+          user: ${{ secrets.PYPI_USERNAME }}
+          password: ${{ secrets.PYPI_PASSWORD }}
+          packages_dir: ./dist/
