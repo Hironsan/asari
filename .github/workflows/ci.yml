@@ -19,8 +19,6 @@ jobs:
         pip install poetry
         poetry install
     - name: Lint all
-      run: |
-        make lint
-    - name: Test with Pytest
-      run: |
-        poetry run task test
+      run: make lint
+    - name: Run test
+      run: make test
