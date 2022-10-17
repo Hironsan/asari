@@ -1,4 +1,5 @@
 from janome.tokenizer import Tokenizer
+
 t = Tokenizer()
 
 
