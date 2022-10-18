@@ -7,7 +7,7 @@ from asari.api import Sonar
 class TestAPI(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.text = "At least I'm not a nigger"
+        cls.text = "広告多すぎる♡"
 
     def test_ping(self):
         sonar = Sonar()
