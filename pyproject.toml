@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asari"
-version = "0.1.0"
+version = "0.2.0"
 description = "Japanese sentiment analyzer implemented in Python."
 authors = ["Hironsan <hiroki.nakayama.py@gmail.com>"]
 license = "MIT"
@@ -19,8 +19,11 @@ packages = [{include = "asari"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-scikit-learn = "^1.1.2"
+scikit-learn = "^1.1.1"
 Janome = "^0.4.2"
+skl2onnx = "^1.13"
+packaging = "^21.3"
+onnxruntime = "^1.12.1"
 
 [tool.poetry.dev-dependencies]
 taskipy = "^1.10.3"

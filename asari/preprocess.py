@@ -1,9 +1,7 @@
-from typing import List
-
 from janome.tokenizer import Tokenizer
 
-t = Tokenizer()
+t = Tokenizer(wakati=True)
 
 
-def tokenize(text: str) -> List[str]:
-    return list(t.tokenize(text, wakati=True))
+def tokenize(text: str) -> str:
+    return " ".join(t.tokenize(text))
