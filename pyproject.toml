@@ -22,7 +22,7 @@ python = "^3.8"
 scikit-learn = "^1.1.1"
 Janome = "^0.4.2"
 skl2onnx = "^1.13"
-packaging = "^21.3"
+packaging = "^23.2"
 onnxruntime = "^1.12.1"
 
 [tool.poetry.dev-dependencies]
